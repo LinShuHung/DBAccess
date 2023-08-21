@@ -7,6 +7,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -85,10 +86,34 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void updateFun(View view){
-
+        ContentValues values = new ContentValues();
+        if(!idUpdate.getText().toString().equals("")){
+            //name
+            if(!name.getText().toString().equals("")){
+                values.put("cname", name.getText().toString());
+            }
+            //tel
+            if(!tel.getText().toString().equals("")){
+                values.put("ctel", tel.getText().toString());
+            }
+            //birthday
+            if(!birthday.getText().toString().equals("Null") || !birthday.getText().toString().equals("")){
+                values.put("cbirthday", birthday.getText().toString());
+            }
+            db.update("cust", values, "cid = ?", new String[]{idUpdate.getText().toString()});
+            execQuery();
+            name.setText("");
+            tel.setText("");
+            birthday.setText("");
+        }
     }
 
     public void deleteFun(View view){
+        if(!idDelete.getText().toString().equals("")) {
+            db.delete("cust", "cid = ?", new String[]{idDelete.getText().toString()});
+            execQuery();
+            idDelete.setText("");
+        }
 
     }
 }
