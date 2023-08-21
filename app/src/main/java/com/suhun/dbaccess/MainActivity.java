@@ -114,6 +114,5 @@ public class MainActivity extends AppCompatActivity {
             execQuery();
             idDelete.setText("");
         }
-
     }
 }
